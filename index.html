@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Wavy Text</title>
+  <script>
+    function formatter(string, wavesize) {
+      up = 0;
+      down = false;
+      console.log(string.length);
+      output="";
+      for(letter in string) {
+        if(string[letter] == "\u0020") {      // if the letter is a space, skip
+          continue;
+        }
+        if(letter == string.length-1) {     // if we're on the last letter, don't add a space
+          output += string[letter];
+          break;
+        }
+        else {
+          output += string[letter] + " ";
+        }
+        if(up == wavesize) {
+          down = true;      // make text go down
+          console.log("down = true");
+        }
+        if(up == 0) {     // if at bottom, start going up
+          down = false;
+          console.log("down = false");
+        }
+        if(down == false) {
+          up++;
+          console.log("Going up!");
+        }
+        else if(down == true) {     // else go down
+          up--;
+          console.log("Going back down!");
+        }
+        for(i = up; i != 0; i--) {      // write ^ up number of times
+          if(i == 0) {
+            console.log("done with letter");
+            break;
+          }
+          output += "^";
+          console.log("Writing '^'!");
+        }
+    }
+    console.log("Returning output!");
+    return output;
+  }
+  </script>
+</head>
+<h1>Welcome to wavy text for Reddit!</h1>
+<h2>To use this tool, simply add your string in the box and change the wavesize to taste.</h2>
+<form oninput="result.value=formatter(stringthing.value, parseInt(wavesize.value));">
+  <input type="text" name="stringthing" value="This text is wavy!">
+  <input type="text" name="wavesize" value="3">
+  <output name="result"></output>
+</form>
+</html>
